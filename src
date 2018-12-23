@@ -37,12 +37,17 @@ int cntAge(int year, int month, int day);//根据出生日期判断年龄
 int main() {
 	static Data wData[N], sData[N];
 	int cnt = 0, sglNum, i;
-	char f;
-	menu();
-	f = getchar();
-	getchar();
-	f = toupper(f);
-	while (f != 'Q') {
+	char f='i';
+	do
+	{
+		if (f != ' '&&f != '\n') {
+			menu();
+		}
+		f = getchar();
+		f = toupper(f);
+		if (f != ' '&&f != '\n') {
+			getchar();
+		}
 		sglNum = 0;
 		if (f == 'I') {
 			sglNum = inputDrct();
@@ -66,19 +71,12 @@ int main() {
 			searchData(sData, cnt);
 		}
 		else if (f != '\n'&&f != ' ') {
-			puts("输入错误请重新输入。");
+			puts(" 输入错误请重新输入。");
 		}
-		if (f != '\n'&&f != ' ') {
+		if (f != ' '&&f != '\n') {
 			line();
-			menu();
 		}
-		f = getchar();
-		f = toupper(f);
-		if (f == '\n' || f == ' ') {
-			continue;
-		}
-		getchar();
-	}
+	} while (f != 'q');
 	return 0;
 }
 
@@ -102,7 +100,7 @@ int inputDrct(void) {
 	getchar();
 	puts("请输入员工的员工号、姓名、性别、出生日期、岗位工资、补贴总额、代扣总额。");
 	puts("输入项目之间必须用<空格>分开！");
-	puts("例如：1010 伍惺委 男 28 3220 1500 300<回车>\n");
+	puts("例如：1010 伍惺委 男 1990-10-20 3220 1500 300<回车>\n");
 	puts("1、员工号是员工信息的唯一标识，不允许重复。长度<=4。");
 	puts("员工号格式：第1位为1--9之间的数字，后面的字符可以是任意数字。");
 	puts("2、姓名必须是2个以上的汉字，最多4个汉字。");
@@ -147,6 +145,7 @@ int inputData(Data s[], int num) {
 	for (i = 0; i < num; i++) {
 		inputAData(&s[i]);
 	}
+	puts("录入成功");
 	return i;
 }
 int strToInt(char s[]) {
